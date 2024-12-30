@@ -1,0 +1,166 @@
+Some point from the code 
+************************
+    Request URL:  -     http://localhost:5500/
+    Request Method:  -  GET
+    Status Code:  -     404 Not Found  "server could not find the requested resource or page."
+    
+      234: This is the HTTP status code being set. While the HTTP specification defines several 
+      standard status codes, 234 is not a standard status code. Typically, status codes are
+      in specific ranges, like:
+            -> 2xx: Success (e.g., 200 OK, 201 Created)
+            -> 3xx: Redirection (e.g., 301 Moved Permanently)
+            -> 4xx: Client Error (e.g., 404 Not Found)
+            -> 5xx: Server Error (e.g., 500 Internal Server Error)
+                    
+                - 500 Error :- meaning the server failed to process a valid request
+                            :- usually caused by problems on the server side, not the client side. 
+
+                        1, Problem it solves: A generic error that indicates something went wrong on the server 
+                        while processing the request, but the server can't be more specific about the error.
+
+                        2, Typical causes : unhandled exceptions, missing or invalid dependencies
+
+
+    Lesson 04 :  Create Book model with mongoose
+    *********
+       - mongoose is popular ODM library for mongodb.
+       - it allow us to intreact mongodb easily with javascript 
+    
+        
+      # a collection in mongodb is a group of documents (records) stored in the database, and
+          it is similar to a table in relational databases.
+       - Collections store data in JSON-like documents (BSON format).
+       - Each document in a collection can have a different structure (schema flexibility).
+       - Collections belong to a database
+       - A collection is where MongoDB organizes and stores related documents.
+
+    **************************************************************************************
+
+    # Object Data Modeling :- refers 
+            - It is bridges the gap between the object-oriented programming model
+            (e.g., JavaScript objects) and the database model (e.g., MongoDB documents).
+            
+            - An ODM allows developers to interact with the database using familiar objects and methods 
+            rather than raw database queries.
+                    
+                    1, Define a schema:
+                       ****************
+                       const userSchema = new mongoose.Schema({
+                            name: String,
+                            email: String,
+                        });
+
+                    2, Use the model:
+                       **************
+                        const User = mongoose.model('User', userSchema);
+                        const user = new User({ name: 'Alice', email: 'alice@example.com' });
+                        user.save();
+
+                    # ODM translates programming objects into database data and vice versa,
+                    simplifying database interactions.
+                            
+                            - Schema = Design/Structure of data in JavaScript.
+                            - Model = Interface to interact with MongoDB to store and retrieve data.
+                            * The model is created from the schema and is used to manipulate data in the database.
+
+
+                Error :- 
+                ******* 
+                   {
+                       "message": "Cannot read properties of undefined (reading 'title')"
+                   }
+                   - above error is because of body is not recognizing our serevr so.  
+                     so we should add middleware for parsing our request body.
+                   - When we send without midle where a JSON format data to server through 
+                     body object when it arrive serevr it become "raw string" it show undefined 
+                     so we middle ware to parse it.
+                   - The request body is still received by the server, but Express doesn’t automatically parse it.
+                    
+                    -> To make the server understand the incoming JSON body,
+
+                With Middleware (Parsing):
+                **************************
+                    - To make the server understand the incoming JSON body, you need to add middleware that parses the body
+                     
+                            1, Incoming Request: When the client sends the JSON data, it’s sent as a string in the request body.
+                            2, express.json() Middleware: This middleware automatically parses the raw JSON string into a JavaScript object.
+                            3, Parsed Body: After parsing, req.body becomes a JavaScript object, and you can directly access.
+
+
+                    CORS policy  : (Cross-Origin Resource Sharing)
+                    ************
+                        -> Is a security feature implemented by web browsers to prevent unauthorized or malicious access 
+                        to resources hosted on a different domain (origin) from the one currently being accessed.
+                        - protect users from cross-origin attacks like Cross-Site Request Forgery (CSRF) or data theft.
+                         It is a web security mechanism that prevent un authorized cross-origin access to rsc or server
+
+                         => When a web page makes a request to a different domain the browsers sends a request 
+                            to the Target server. the server will check that whether the request is permited or not?
+                            it checks Origin, Methods and Headerthen allow or deny our request. 
+                           
+                           -> To fix it is too easy in node.js   
+                           
+                    npm i cors
+                    **********
+                      -> handling CORS policies by automatically adding the appropriate HTTP headers to server responses,
+                         allowing your backend to specify which origins, HTTP methods, and headers are permitted 
+                         for cross-origin requests.
+
+
+    # Frontend Class Texts 
+    **********************
+      1, axios dependencies :
+        - axios is a popular JavaScript library for making HTTP requests.
+          
+          Why use it?
+          ***********
+        - Provides a clean and simple API to handle HTTP requests (GET, POST, PUT, DELETE, etc.)
+        - Built on Promises, making it easy to handle asynchronous requests.
+        - Automatically transforms JSON data from responses
+        - Headers and Interceptors: Simplifies setting custom headers and managing authentication tokens.
+        - Error Handling: Includes built-in error handling for failed requests.
+
+      2, react-icons 
+         *********** 
+         - react-icons is a library that provides a collection of reusable icons for React applications
+         - Wide Icon Set: Includes icons from various popular icon libraries (Font Awesome, Material Design, etc.).
+         - Lightweight: Optimized to load only the icons you use.
+         - Customizable: Easily style icons with CSS for size, color, and effects.
+         - Convenient Usage: Import icons as React components for seamless integration.
+          
+          
+        State Management with useState:
+        *******************************
+
+         "const [books, setBooks] = useState([]);
+          const [loading, setLoading] = useState(false);"
+             The useState hook is used to declare and manage two pieces of state:
+            -> books: Stores the fetched book data.
+            -> loading: Tracks whether the app is currently fetching data (true when fetching,       
+                      false after fetching is complete).       
+            -> Why Used: This allows dynamic updates of the UI based on the current state of the app.      
+
+        Why Use These Concepts?
+        ***********************
+          useState:
+          *********
+            Manages state for dynamic updates without reloading the page.
+            Tracks books and the loading status.
+          useEffect:
+          **********
+            Handles side effects like data fetching. It ensures the fetch process is initiated at the right time (after the component mounts).
+          axios:
+          ******
+            A promise-based library for making HTTP requests. It's simpler and more readable than native fetch.
+          Dynamic Rendering:
+          ******************
+            By combining books and loading state, the UI can conditionally render appropriate content (e.g., a list of books or a loading indicator).
+
+
+
+
+
+
+
+
+
